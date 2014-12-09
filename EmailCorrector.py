@@ -10,8 +10,46 @@ class Corrector(object):
     def make_default_rules(self):
         rules = {}
         rules.update({'a':['a', 'u']})
-        rules.update({'o':['o', '0']})
+        rules.update({'b':['b']})
+        rules.update({'c':['c']})
+        rules.update({'d':['d']})
+        rules.update({'e':['e', 'c']})
+        rules.update({'f':['f']})
+        rules.update({'g':['g']})
+        rules.update({'h':['h']})
         rules.update({'i':['i', 'j', 'l', '1']})
+        rules.update({'j':['j', 'i']})
+        rules.update({'k':['k']})
+        rules.update({'l':['l', '1', 'i']})
+        rules.update({'m':['m', 'nn', 'rn']})
+        rules.update({'n':['n', 'r']})
+        rules.update({'o':['o', '0']})
+        rules.update({'p':['p']})
+        rules.update({'q':['q', '9']})
+        rules.update({'r':['r', 'n']})
+        rules.update({'s':['s', '5']})
+        rules.update({'t':['t']})
+        rules.update({'u':['u', 'v']})
+        rules.update({'v':['v', 'u']})
+        rules.update({'w':['w', 'vv']})
+        rules.update({'x':['x']})
+        rules.update({'y':['y']})
+        rules.update({'z':['z', '2']})
+
+        rules.update({'0':['0', 'u']})
+        rules.update({'1':['1', '7', 'l']})
+        rules.update({'2':['2', 'z']})
+        rules.update({'3':['3']})
+        rules.update({'4':['4']})
+        rules.update({'5':['5', 's']})
+        rules.update({'6':['6']})
+        rules.update({'7':['7', '1']})
+        rules.update({'8':['8']})
+        rules.update({'9':['9', 'g', 'q']})
+
+        rules.update({'-':['-', '_']})
+        rules.update({'_':['_', '-']})
+        rules.update({'.':['.', '']})
         return rules
 
     def separate_chars(self, string):
@@ -31,8 +69,9 @@ class Corrector(object):
 
     def suggest(self, fuzzy):
         suggestions = []
-        for x in itertools.product(*self.construct_suggestion_array(self.separate_chars(fuzzy))):
-            suggestions.append("".join(x))
+        (fuzzylocal, fuzzydomain) = fuzzy.split('@')
+        for x in itertools.product(*self.construct_suggestion_array(self.separate_chars(fuzzylocal))):
+            suggestions.append("".join(x) + '@' + fuzzydomain)
         return suggestions
 
 def main():
